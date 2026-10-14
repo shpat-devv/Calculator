@@ -14,25 +14,41 @@ namespace ConsoleApplication1
       {5, "Test"},
       {6, "Exit"},
     };
+
     public static void Main(string[] args)
     {
-      //create a simple calculator
-      
-      Opts();
+      int userInput = 6;
 
       while (true)
       {
-        Console.WriteLine("Hello User, choose your option: ");
-        int? userInput = Int16.Parse(Console.ReadLine());
+        Console.WriteLine("Hello User, choose your option: \n");
 
-        if (userInput == null)
+        Opts();
+
+        try
         {
-          break
+          userInput = Int16.Parse(Console.ReadLine());
+
+          
+          if (Options.ContainsKey(userInput))
+          {
+            Console.WriteLine("Handling Input...");
+          } 
+
+          else 
+          {
+            Console.WriteLine("Input not programmed.");
+          }
         }
-        
-        if (userInput == "exit")
+
+        catch (System.FormatException)
         {
-          break;
+          Console.WriteLine("Wrong Input type");
+        }
+
+        catch (Exception e)
+        {
+          Console.WriteLine($"error: {e}");
         }
       }
       
@@ -46,7 +62,7 @@ namespace ConsoleApplication1
 
     private static void Opts()
     {
-      foreach (KeyValuePair<int, string> option in Options) Console.WriteLine($"{option.Key}, {option.Value}");
+      foreach (KeyValuePair<int, string> option in Options) Console.WriteLine($"{option.Key}, {option.Value} \n");
     }
 
     private static int Add(int a, int b)
