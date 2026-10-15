@@ -4,3 +4,5 @@
 /Users/shpatdev/RiderProjects/ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.csproj.CoreCompileInputs.cache
 /Users/shpatdev/RiderProjects/ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.exe
 /Users/shpatdev/RiderProjects/ConsoleApplication1/ConsoleApplication1/obj/Debug/ConsoleApplication1.pdb
+/workspaces/Calculator/ConsoleApplication1/obj/Debug/ConsoleApplication1.exe
+/workspaces/Calculator/ConsoleApplication1/obj/Debug/ConsoleApplication1.pdb

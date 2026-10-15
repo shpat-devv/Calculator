@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace ConsoleApplication1
 {
   internal static class Program
@@ -14,6 +16,8 @@ namespace ConsoleApplication1
     public static void Main(string[] args)
     {
       int userInput;
+
+      Calculator calc = new Calculator();
 
       while (true)
       {
@@ -39,16 +43,16 @@ namespace ConsoleApplication1
           switch(userInput)
           {
             case 1:
-              Console.WriteLine(Add(firstNum, secondNum));
+              Console.WriteLine(calc.Add(firstNum, secondNum));
               break;
             case 2:
-              Console.WriteLine(Sub(firstNum, secondNum));
+              Console.WriteLine(calc.Sub(firstNum, secondNum));
               break;
             case 3:
-              Console.WriteLine(Mul(firstNum, secondNum));
+              Console.WriteLine(calc.Mul(firstNum, secondNum));
               break;
             case 4:
-              Console.WriteLine(Div(firstNum, secondNum));
+              Console.WriteLine(calc.Div(firstNum, secondNum));
               break;
           }
         } 
@@ -69,26 +73,6 @@ namespace ConsoleApplication1
       }
 
       return 0;
-    }
-
-    private static int Add(int a, int b)
-    {
-      return a + b;
-    }
-
-    private static int Sub(int a, int b)
-    {
-      return a - b;
-    }
-
-    private static int Mul(int a, int b)
-    {
-      return a * b;
-    }
-    
-    private static int Div(int a, int b)
-    {
-      return a / b;
     }
   }
 }
