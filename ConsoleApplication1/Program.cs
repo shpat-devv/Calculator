@@ -11,28 +11,53 @@ namespace ConsoleApplication1
       {2, "Sub"},
       {3, "Mul"},
       {4, "Div"},
-      {5, "Test"},
-      {6, "Exit"},
+      {5, "Exit"},
     };
 
     public static void Main(string[] args)
     {
-      int userInput = 6;
+      int userInput;
 
       while (true)
       {
         Console.WriteLine("Hello User, choose your option: \n");
 
-        Opts();
+        foreach (KeyValuePair<int, string> option in Options) Console.WriteLine($"{option.Key}, {option.Value} \n");
 
         try
         {
-          userInput = Int16.Parse(Console.ReadLine());
+          userInput = int.Parse(Console.ReadLine());
 
           
           if (Options.ContainsKey(userInput))
           {
-            Console.WriteLine("Handling Input...");
+            if (userInput == 5)
+            {
+              Environment.Exit(0);
+            }
+
+            Console.WriteLine("Choose first number: ");
+            int firstNum = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Choose second number: ");
+            int secondNum = int.Parse(Console.ReadLine());
+
+            switch(userInput)
+            {
+              case 1:
+                Console.WriteLine(Add(firstNum, secondNum));
+                break;
+              case 2:
+                Console.WriteLine(Sub(firstNum, secondNum));
+                break;
+              case 3:
+                Console.WriteLine(Mul(firstNum, secondNum));
+                break;
+              case 4:
+                Console.WriteLine(Div(firstNum, secondNum));
+                break;
+            }
+
           } 
 
           else 
@@ -41,7 +66,7 @@ namespace ConsoleApplication1
           }
         }
 
-        catch (System.FormatException)
+        catch (FormatException)
         {
           Console.WriteLine("Wrong Input type");
         }
@@ -51,18 +76,6 @@ namespace ConsoleApplication1
           Console.WriteLine($"error: {e}");
         }
       }
-      
-      //testing
-      Console.WriteLine(Add(10, 20));
-      Console.WriteLine(Sub(10, 20));
-      Console.WriteLine(Mul(10, 20));
-      Console.WriteLine(Div(10, 20));
-
-    }
-
-    private static void Opts()
-    {
-      foreach (KeyValuePair<int, string> option in Options) Console.WriteLine($"{option.Key}, {option.Value} \n");
     }
 
     private static int Add(int a, int b)
