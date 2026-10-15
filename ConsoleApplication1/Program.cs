@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace ConsoleApplication1
 {
   internal static class Program
@@ -24,58 +21,54 @@ namespace ConsoleApplication1
 
         foreach (KeyValuePair<int, string> option in Options) Console.WriteLine($"{option.Key}, {option.Value} \n");
 
-        try
-        {
-          userInput = int.Parse(Console.ReadLine());
-
+        userInput = ReadNumInput();
           
-          if (Options.ContainsKey(userInput))
+        if (Options.ContainsKey(userInput))
+        {
+          if (userInput == 5)
           {
-            if (userInput == 5)
-            {
-              Environment.Exit(0);
-            }
-
-            Console.WriteLine("Choose first number: ");
-            int firstNum = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Choose second number: ");
-            int secondNum = int.Parse(Console.ReadLine());
-
-            switch(userInput)
-            {
-              case 1:
-                Console.WriteLine(Add(firstNum, secondNum));
-                break;
-              case 2:
-                Console.WriteLine(Sub(firstNum, secondNum));
-                break;
-              case 3:
-                Console.WriteLine(Mul(firstNum, secondNum));
-                break;
-              case 4:
-                Console.WriteLine(Div(firstNum, secondNum));
-                break;
-            }
-
-          } 
-
-          else 
-          {
-            Console.WriteLine("Input not programmed.");
+            Environment.Exit(0);
           }
-        }
 
-        catch (FormatException)
-        {
-          Console.WriteLine("Wrong Input type");
-        }
+          Console.WriteLine("Choose first number: ");
+          int firstNum = ReadNumInput();
 
-        catch (Exception e)
-        {
-          Console.WriteLine($"error: {e}");
-        }
+          Console.WriteLine("Choose second number: ");
+          int secondNum = ReadNumInput();
+
+          switch(userInput)
+          {
+            case 1:
+              Console.WriteLine(Add(firstNum, secondNum));
+              break;
+            case 2:
+              Console.WriteLine(Sub(firstNum, secondNum));
+              break;
+            case 3:
+              Console.WriteLine(Mul(firstNum, secondNum));
+              break;
+            case 4:
+              Console.WriteLine(Div(firstNum, secondNum));
+              break;
+          }
+        } 
       }
+    }
+
+    private static int ReadNumInput()
+    {
+      try
+      {
+        int userInput = int.Parse(Console.ReadLine());
+        return userInput;
+      }
+
+      catch (FormatException)
+      {
+        Console.WriteLine("Please Enter Valid Number.");
+      }
+
+      return 0;
     }
 
     private static int Add(int a, int b)
