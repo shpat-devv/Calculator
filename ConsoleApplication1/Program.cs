@@ -1,4 +1,5 @@
-using System.Runtime.CompilerServices;
+using System;
+using System.Collections.Generic;
 
 namespace ConsoleApplication1
 {
@@ -15,9 +16,7 @@ namespace ConsoleApplication1
 
     public static void Main(string[] args)
     {
-      int userInput;
-
-      Calculator calc = new Calculator();
+      var calc = new Calculator();
 
       while (true)
       {
@@ -25,20 +24,20 @@ namespace ConsoleApplication1
 
         foreach (KeyValuePair<int, string> option in Options) Console.WriteLine($"{option.Key}, {option.Value} \n");
 
-        userInput = ReadNumInput();
+        var userInput = ReadNumInput();
           
         if (Options.ContainsKey(userInput))
         {
           if (userInput == 5)
           {
-            Environment.Exit(0);
+            break;
           }
 
           Console.WriteLine("Choose first number: ");
-          int firstNum = ReadNumInput();
+          var firstNum = ReadNumInput();
 
           Console.WriteLine("Choose second number: ");
-          int secondNum = ReadNumInput();
+          var secondNum = ReadNumInput();
 
           switch(userInput)
           {
