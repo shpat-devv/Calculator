@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace ConsoleApplication1
 {
   internal static class Program
@@ -13,21 +16,19 @@ namespace ConsoleApplication1
 
     public static void Main(string[] args)
     {
-      int userInput;
-
       while (true)
       {
         Console.WriteLine("Hello User, choose your option: \n");
 
         foreach (KeyValuePair<int, string> option in Options) Console.WriteLine($"{option.Key}, {option.Value} \n");
 
-        userInput = ReadNumInput();
+        int userInput = ReadNumInput();
           
         if (Options.ContainsKey(userInput))
         {
           if (userInput == 5)
           {
-            Environment.Exit(0);
+            break;
           }
 
           Console.WriteLine("Choose first number: ");
