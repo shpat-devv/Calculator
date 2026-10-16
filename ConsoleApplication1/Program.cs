@@ -16,13 +16,15 @@ namespace ConsoleApplication1
 
     public static void Main(string[] args)
     {
+      var calc = new Calculator();
+
       while (true)
       {
         Console.WriteLine("Hello User, choose your option: \n");
 
         foreach (KeyValuePair<int, string> option in Options) Console.WriteLine($"{option.Key}, {option.Value} \n");
 
-        int userInput = ReadNumInput();
+        var userInput = ReadNumInput();
           
         if (Options.ContainsKey(userInput))
         {
@@ -32,24 +34,24 @@ namespace ConsoleApplication1
           }
 
           Console.WriteLine("Choose first number: ");
-          int firstNum = ReadNumInput();
+          var firstNum = ReadNumInput();
 
           Console.WriteLine("Choose second number: ");
-          int secondNum = ReadNumInput();
+          var secondNum = ReadNumInput();
 
           switch(userInput)
           {
             case 1:
-              Console.WriteLine(Add(firstNum, secondNum));
+              Console.WriteLine(calc.Add(firstNum, secondNum));
               break;
             case 2:
-              Console.WriteLine(Sub(firstNum, secondNum));
+              Console.WriteLine(calc.Sub(firstNum, secondNum));
               break;
             case 3:
-              Console.WriteLine(Mul(firstNum, secondNum));
+              Console.WriteLine(calc.Mul(firstNum, secondNum));
               break;
             case 4:
-              Console.WriteLine(Div(firstNum, secondNum));
+              Console.WriteLine(calc.Div(firstNum, secondNum));
               break;
           }
         } 
@@ -70,26 +72,6 @@ namespace ConsoleApplication1
       }
 
       return 0;
-    }
-
-    private static int Add(int a, int b)
-    {
-      return a + b;
-    }
-
-    private static int Sub(int a, int b)
-    {
-      return a - b;
-    }
-
-    private static int Mul(int a, int b)
-    {
-      return a * b;
-    }
-    
-    private static int Div(int a, int b)
-    {
-      return a / b;
     }
   }
 }
