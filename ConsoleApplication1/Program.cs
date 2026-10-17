@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleApplication1
 {
@@ -7,55 +8,110 @@ namespace ConsoleApplication1
   {
     private static readonly Dictionary<int, string> Options = new Dictionary<int, string>
     {
-      {1, "Add"},
-      {2, "Sub"},
-      {3, "Mul"},
-      {4, "Div"},
-      {5, "Exit"},
+      {1, "+"},
+      {2, "-"},
+      {3, "*"},
+      {4, "/"},
+      {5, "History"},
+      {6, "Exit"},
     };
 
     public static void Main(string[] args)
     {
       var calc = new Calculator();
-
+      
+      List<int> history =  new List<int>();
+      
       while (true)
       {
         Console.WriteLine("Hello User, choose your option: \n");
 
-        foreach (KeyValuePair<int, string> option in Options) Console.WriteLine($"{option.Key}, {option.Value} \n");
+        foreach (KeyValuePair<int, string> option in Options) Console.WriteLine($"{option.Key}, {option.Value}");
 
-        var userInput = ReadNumInput();
+        int userInput = ReadNumInput();
           
         if (Options.ContainsKey(userInput))
         {
-          if (userInput == 5)
+          if (Options[userInput] == "Exit")
           {
             break;
           }
+          
+          if (Options[userInput] == "History")
+          {
+            string operation = "";
+            int currentOperationIndex = 0;
+            
+            for (int i = 0; i < history.Count; i++)
+            {
+              if (currentOperationIndex % 2 != 0)
+              {
+                if (currentOperationIndex == 1)
+                {
+                  operation += Options[history[i]];
+                }
 
-          Console.WriteLine("Choose first number: ");
+                else if (currentOperationIndex == 3)
+                {
+                  operation += "=" + history[i];
+                  
+                  Console.WriteLine(operation);
+                  currentOperationIndex = 0;
+                }
+              }
+
+              else
+              {
+                operation += history[i].ToString();
+              }
+              
+              currentOperationIndex++;
+            }
+          }
+          
+          Console.WriteLine("\nChoose first number: ");
           var firstNum = ReadNumInput();
 
           Console.WriteLine("Choose second number: ");
           var secondNum = ReadNumInput();
-
+          
+          var res = 0;
+          
           switch(userInput)
           {
             case 1:
-              Console.WriteLine(calc.Add(firstNum, secondNum));
+              res = calc.Add(firstNum, secondNum);
               break;
             case 2:
-              Console.WriteLine(calc.Sub(firstNum, secondNum));
+              res = calc.Sub(firstNum, secondNum);
               break;
             case 3:
-              Console.WriteLine(calc.Mul(firstNum, secondNum));
+              res = calc.Mul(firstNum, secondNum);
               break;
             case 4:
-              Console.WriteLine(calc.Div(firstNum, secondNum));
+              res = calc.Div(firstNum, secondNum);
               break;
           }
+          
+          Console.WriteLine($"\nResult: {res}, \nContinue? (y/n)");
+          
+          if (Console.ReadKey().Key == ConsoleKey.N){
+            break;
+          }
+          
+          AddHistory(history, firstNum, secondNum, userInput, res);
+          
+          Console.Clear();
         } 
       }
+    }
+
+    private static void AddHistory(List<int> history, int firstNum, int secondNum, int operation, int result)
+    {
+      history.Add(firstNum);
+      history.Add(operation);
+      history.Add(secondNum);
+      history.Add(result);
     }
 
     private static int ReadNumInput()
