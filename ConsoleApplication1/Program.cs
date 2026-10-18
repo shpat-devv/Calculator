@@ -20,7 +20,7 @@ namespace ConsoleApplication1
     {
       var calc = new Calculator();
       
-      List<int> history =  new List<int>();
+      List<int> history = new List<int>();
       
       while (true)
       {
@@ -54,9 +54,9 @@ namespace ConsoleApplication1
                 else if (currentOperationIndex == 3)
                 {
                   operation += "=" + history[i];
-                  
-                  Console.WriteLine(operation);
-                  currentOperationIndex = 0;
+                  Console.WriteLine($"\n{operation}");
+                  operation = "";
+                  currentOperationIndex = -1;
                 }
               }
 
@@ -116,18 +116,19 @@ namespace ConsoleApplication1
 
     private static int ReadNumInput()
     {
-      try
+      while (true)
       {
-        int userInput = int.Parse(Console.ReadLine());
-        return userInput;
-      }
+        try
+        {
+          int userInput = int.Parse(Console.ReadLine());
+          return userInput;
+        }
 
-      catch (FormatException)
-      {
-        Console.WriteLine("Please Enter Valid Number.");
+        catch (FormatException)
+        {
+          Console.WriteLine("Please Enter Valid Number.");
+        }
       }
-
-      return 0;
     }
   }
 }
