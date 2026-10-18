@@ -67,6 +67,8 @@ namespace ConsoleApplication1
               
               currentOperationIndex++;
             }
+            
+            continue;
           }
           
           Console.WriteLine("\nChoose first number: ");
