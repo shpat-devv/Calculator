@@ -3,30 +3,28 @@ using System.Collections.Generic;
 
 namespace ConsoleApplication1
 {
-    public struct Helper
+    public static class Helper
     {
-        public int ReadNumInput()
+        public static int ReadNumInput()
         {
             while (true)
             {
-                try
+                var input = Console.ReadLine();
+                if (int.TryParse(input, out var userInput))
                 {
-                    int userInput = int.Parse(Console.ReadLine());
                     return userInput;
                 }
 
-                catch (FormatException)
-                {
-                    Console.WriteLine("Please Enter Valid Number.");
-                }
+                Console.WriteLine("Please enter a valid number.");
             }
         }
         
-        public void PrintOptions()
+        public static void PrintOptions()
         {
-            var options = Constants.Options;
-            foreach (KeyValuePair<int, string> option in options) 
+            foreach (KeyValuePair<int, string> option in Constants.Options)
+            {
                 Console.WriteLine($"{option.Key}, {option.Value}");
+            }
         }
     }
 }
