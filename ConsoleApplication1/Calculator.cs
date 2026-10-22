@@ -42,6 +42,11 @@ namespace ConsoleApplication1
             }
         }
 
+        public int HandleCalculation(int userInput);
+        {
+            
+        }
+
         public int Add(int a, int b) => a + b;
 
         public int Sub(int a, int b) => a - b;
