@@ -43,15 +43,10 @@ namespace ConsoleApplication1
             }
         }
         
-        public void ClearHistory()
-        {
-            _history.Clear();
-        }
-        
         public void SaveHistoryToFile()
         {
             FileHandling handler = new FileHandling();
-            string[] content = _history.Select(entry => entry.ToString()).ToArray();
+            string[] content = _history.Select(entry => entry.ToString()).ToArray(); //Convert history to array of strings
             
             handler.WriteHistory(content);
         }
@@ -59,21 +54,35 @@ namespace ConsoleApplication1
         public void LoadHistoryFromFile()
         {
             FileHandling handler = new FileHandling();
-            string[] content = handler.ReadHistory().Split(',');
 
-            foreach (var entry in content)
+            string content = handler.ReadHistory();
+            
+            if (String.IsNullOrEmpty(content))
+                return;
+            
+            try
             {
-                string[] parts = entry.Split(' ');
+                string[] history = handler.ReadHistory().Split(','); //Load file and separate calculations in history
 
-                if (parts.Length != 5)
-                    continue;
+                foreach (var entry in history)
+                {
+                    string[] parts = entry.Split(' '); //Spaces separate parts of a calculation
 
-                int firstNum = int.Parse(parts[0]);
-                int secondNum = int.Parse(parts[2]);
-                var operation = Constants.Options.FirstOrDefault(x => x.Value == parts[1]).Key;
-                int result = int.Parse(parts[4]);
+                    if (parts.Length != 5) 
+                        continue;
 
-                AddHistory(firstNum, secondNum, operation, result);
+                    int firstNum = int.Parse(parts[0]);
+                    int secondNum = int.Parse(parts[2]);
+                    var operation = Constants.Options.FirstOrDefault(x => x.Value == parts[1]).Key; //Get matching INT Key of operator
+                    int result = int.Parse(parts[4]);
+
+                    AddHistory(firstNum, secondNum, operation, result);
+                } 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Formatting Issue with file: " + ex.Message);
+                handler.ClearHistory();
             }
         }
 
