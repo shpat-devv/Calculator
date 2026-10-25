@@ -8,7 +8,7 @@ namespace ConsoleApplication1
         {
             var calc = new Calculator();
             var options = Constants.Options;
-
+            
             while (true)
             {
                 Console.WriteLine("Hello User, choose your option: \n");
@@ -65,6 +65,7 @@ namespace ConsoleApplication1
                 var continueInput = Console.ReadLine()?.Trim();
                 if (!string.IsNullOrEmpty(continueInput) && continueInput.StartsWith("n", StringComparison.OrdinalIgnoreCase))
                 {
+                    calc.GetHistoryToFile();
                     break;
                 }
 

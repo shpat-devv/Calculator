@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleApplication1
 {
@@ -40,6 +41,19 @@ namespace ConsoleApplication1
             {
                 yield return entry.ToString();
             }
+        }
+        
+        public void ClearHistory()
+        {
+            _history.Clear();
+        }
+        
+        public void GetHistoryToFile()
+        {
+            FileHandling handler = new FileHandling();
+            string[] content = _history.Select(entry => entry.ToString()).ToArray();
+            
+            handler.WriteHistory(content);
         }
 
         public int HandleCalculation(int firstNum, int secondNum, int operation)
