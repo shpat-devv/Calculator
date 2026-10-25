@@ -48,12 +48,33 @@ namespace ConsoleApplication1
             _history.Clear();
         }
         
-        public void GetHistoryToFile()
+        public void SaveHistoryToFile()
         {
             FileHandling handler = new FileHandling();
             string[] content = _history.Select(entry => entry.ToString()).ToArray();
             
             handler.WriteHistory(content);
+        }
+
+        public void LoadHistoryFromFile()
+        {
+            FileHandling handler = new FileHandling();
+            string[] content = handler.ReadHistory().Split(',');
+
+            foreach (var entry in content)
+            {
+                string[] parts = entry.Split(' ');
+
+                if (parts.Length != 5)
+                    continue;
+
+                int firstNum = int.Parse(parts[0]);
+                int secondNum = int.Parse(parts[2]);
+                var operation = Constants.Options.FirstOrDefault(x => x.Value == parts[1]).Key;
+                int result = int.Parse(parts[4]);
+
+                AddHistory(firstNum, secondNum, operation, result);
+            }
         }
 
         public int HandleCalculation(int firstNum, int secondNum, int operation)

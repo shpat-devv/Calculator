@@ -7,7 +7,8 @@ namespace ConsoleApplication1
         public static void Main(string[] args)
         {
             var calc = new Calculator();
-            var options = Constants.Options;
+            
+            calc.LoadHistoryFromFile();
             
             while (true)
             {
@@ -16,7 +17,7 @@ namespace ConsoleApplication1
 
                 var operation = Helper.ReadNumInput();
 
-                if (!options.ContainsKey(operation))
+                if (!Constants.Options.ContainsKey(operation))
                 {
                     Console.WriteLine("\nInvalid option. Please choose a valid option from the menu.\n");
                     continue;
@@ -24,6 +25,7 @@ namespace ConsoleApplication1
 
                 if (operation == Constants.Exit)
                 {
+                    calc.SaveHistoryToFile();
                     break;
                 }
 
@@ -65,7 +67,7 @@ namespace ConsoleApplication1
                 var continueInput = Console.ReadLine()?.Trim();
                 if (!string.IsNullOrEmpty(continueInput) && continueInput.StartsWith("n", StringComparison.OrdinalIgnoreCase))
                 {
-                    calc.GetHistoryToFile();
+                    calc.SaveHistoryToFile();
                     break;
                 }
 
