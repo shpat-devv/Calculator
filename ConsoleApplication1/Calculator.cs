@@ -5,10 +5,10 @@ namespace ConsoleApplication1
 {
     public class CalculationEntry
     {
-        public int FirstNumber { get; }
-        public int SecondNumber { get; }
-        public int Operation { get; }
-        public int Result { get; }
+        private int FirstNumber { get; }
+        private int SecondNumber { get; }
+        private int Operation { get; }
+        private int Result { get; }
 
         public CalculationEntry(int firstNumber, int secondNumber, int operation, int result)
         {
@@ -42,18 +42,33 @@ namespace ConsoleApplication1
             }
         }
 
-        public int HandleCalculation(int userInput);
-        {
-            
+        public int HandleCalculation(int firstNum, int secondNum, int operation)
+        { 
+            switch (operation)
+            {
+                case Constants.Add:
+                    return Add(firstNum, secondNum);
+                case Constants.Sub:
+                    return Sub(firstNum, secondNum);
+                case Constants.Mul:
+                    return Mul(firstNum, secondNum);
+                case Constants.Div:
+                    return Div(firstNum, secondNum);
+                default:
+                    Console.WriteLine("\nUnknown operation.\n");
+                    break;
+            }
+
+            return 0;
         }
 
-        public int Add(int a, int b) => a + b;
+        private static int Add(int a, int b) => a + b;
 
-        public int Sub(int a, int b) => a - b;
+        private static int Sub(int a, int b) => a - b;
 
-        public int Mul(int a, int b) => a * b;
+        private static int Mul(int a, int b) => a * b;
 
-        public int Div(int a, int b)
+        private static int Div(int a, int b)
         {
             if (b == 0)
             {

@@ -16,11 +16,10 @@ A simple command-line calculator built with C# and .NET. It allows users to perf
 ## Future Improvements
 
 - Add support for decimal numbers.
-- Handle division by zero explicitly.
-- Persist calculation history to a file.
-- Improve menu navigation and exit confirmation.
+- Add History saving option with async
+- Remember last calculation result option.
+- Add event handling for calculation.
 - Add unit tests for arithmetic operations.
-- Refactor history storage into a dedicated calculation model instead of a flat list of integers.
 
 ## Requirements
 

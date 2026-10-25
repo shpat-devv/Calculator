@@ -14,25 +14,25 @@ namespace ConsoleApplication1
                 Console.WriteLine("Hello User, choose your option: \n");
                 Helper.PrintOptions();
 
-                var userInput = Helper.ReadNumInput();
+                var operation = Helper.ReadNumInput();
 
-                if (!options.ContainsKey(userInput))
+                if (!options.ContainsKey(operation))
                 {
                     Console.WriteLine("\nInvalid option. Please choose a valid option from the menu.\n");
                     continue;
                 }
 
-                if (userInput == Constants.Exit)
+                if (operation == Constants.Exit)
                 {
                     break;
                 }
 
-                if (userInput == Constants.History)
+                if (operation == Constants.History)
                 {
                     var hasHistory = false;
-                    foreach (var operation in calc.GetHistory())
+                    foreach (var op in calc.GetHistory())
                     {
-                        Console.WriteLine($"\n{operation}");
+                        Console.WriteLine($"\n{op}");
                         hasHistory = true;
                     }
 
@@ -51,36 +51,17 @@ namespace ConsoleApplication1
                 Console.WriteLine("Choose second number: ");
                 var secondNum = Helper.ReadNumInput();
 
-                if (userInput == Constants.Div && secondNum == 0)
+                if (operation == Constants.Div && secondNum == 0)
                 {
                     Console.WriteLine("\nError: Division by zero is not allowed.\n");
                     continue;
                 }
 
-                int res;
-                switch (userInput)
-                {
-                    case Constants.Add:
-                        res = calc.Add(firstNum, secondNum);
-                        break;
-                    case Constants.Sub:
-                        res = calc.Sub(firstNum, secondNum);
-                        break;
-                    case Constants.Mul:
-                        res = calc.Mul(firstNum, secondNum);
-                        break;
-                    case Constants.Div:
-                        res = calc.Div(firstNum, secondNum);
-                        break;
-                    default:
-                        Console.WriteLine("\nUnknown operation.\n");
-                        continue;
-                }
-
-                calc.AddHistory(firstNum, secondNum, userInput, res);
-
+                var res = calc.HandleCalculation(firstNum, secondNum, operation);
+                
                 Console.WriteLine($"\nResult: {res}, \nContinue? (y/n)");
-
+                calc.AddHistory(firstNum, secondNum, operation, res);
+                
                 var continueInput = Console.ReadLine()?.Trim();
                 if (!string.IsNullOrEmpty(continueInput) && continueInput.StartsWith("n", StringComparison.OrdinalIgnoreCase))
                 {
